@@ -6,10 +6,16 @@ void main() {
   VarsInit();
 	
 	while(1){
+		/*
 		F_ledOn();
 		delayMs(500);
 		F_ledOff();
 		delayMs(500);
+		*/
+		GetKeys();
+		if(D_keyValue1 == keyValue){
+			F_ledNeg();
+		}
 	}
 }
 //=============================================================================
