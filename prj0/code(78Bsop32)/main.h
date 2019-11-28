@@ -14,5 +14,5 @@
 // Action Macro: exp: #define F_getData() ------
 
 // Function ------------------------------------
-
+void delayMs(uint16_t time);
 #endif
