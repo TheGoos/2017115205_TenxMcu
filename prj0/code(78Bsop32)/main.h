@@ -15,4 +15,8 @@
 
 // Function ------------------------------------
 void delayMs(uint16_t time);
+void TimeProcess();
+void TaskSetting();
+void TaskProcess();
+void DisplayProcess();
 #endif
