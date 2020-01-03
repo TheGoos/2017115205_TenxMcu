@@ -7,6 +7,10 @@ void main() {
 	//使能看门狗
 	F_turnOnWDT();
 	modeValue = 1; //初始值为1
+	P_ledcom=0;
+	P_led1 = 1;
+	//P_led2=1;
+	
 	while(1){
 		//清看门狗
 		F_clearWDT();
@@ -21,14 +25,15 @@ void main() {
 //=============================================================================
 	void TimeProcess(){
 		static uint8_t timer5ms = 0;
-
+	
 		if (b1ms) {
 			// 1ms 执行一次
 			b1ms = 0;
 			timer5ms++;
 		}
+		
 		if (timer5ms >= 5) {
-			P1MODL = 0xa8;
+			P1MODL = 0x8a;
 			GetKeys();
 		}
 	}
@@ -46,15 +51,16 @@ void main() {
 				Mode_Neg();		
 			}
 		}
+		
 	} 
 //=============================================================================
 	void TaskProcess(){
-	
+
 	}
 //=============================================================================
-	void DisplayProcess(){
-	
-	}
+void DisplayProcess(){
+
+}
 //=============================================================================
 //延时函数
 void delayMs(uint16_t time){
