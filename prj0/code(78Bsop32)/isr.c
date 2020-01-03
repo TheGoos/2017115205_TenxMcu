@@ -67,6 +67,10 @@ void UART_int(void) interrupt 4 {
 void TIMER2_int(void) interrupt 5 {
   TF2 = 0; // clear interrupt flag
   b1ms = 1;
+	//通过中断让蜂鸣器发声
+	if (buzzLastTimer > 0) {
+		F_buzz();
+	}
 }
 //=============================================================================
 // Function:	void TIMER3_int(void)
@@ -74,6 +78,7 @@ void TIMER2_int(void) interrupt 5 {
 // Input:	none
 // OutPut:	none
 // Author:
+/*
 //=============================================================================
 void TIMER3_int(void) interrupt 7 { INTFLAG &= ~TF3; }
 //=============================================================================
@@ -104,3 +109,4 @@ void ADC_TK_int(void) interrupt 10 {
   INTFLAG &= ~TKIF;
   TKCON2 &= ~TKAUTO; // disable touch key auto scan
 }
+*/

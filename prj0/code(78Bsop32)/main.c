@@ -7,9 +7,11 @@ void main() {
 	//使能看门狗
 	F_turnOnWDT();
 	modeValue = 1; //初始值为1
+	buzzCounter = 0; //初始值为0
 	P_ledcom=0;
 	P_led1 = 1;
 	//P_led2=1;
+	BuzzCount(3); //参数3代表设置蜂鸣器响3下
 	
 	while(1){
 		//清看门狗
@@ -24,15 +26,30 @@ void main() {
 
 //=============================================================================
 	void TimeProcess(){
-		static uint8_t timer5ms = 0;
+		static uint8_t timer5ms = 0;  //按键计时
+		static uint8_t timer250ms = 0;  //蜂鸣器计时
 	
 		if (b1ms) {
 			// 1ms 执行一次
 			b1ms = 0;
+			timer250ms++;
 			timer5ms++;
+			
+			if (buzzLastTimer > 0) {
+				buzzLastTimer--;
+			}
+		}
+		
+		if (timer250ms >= 250){
+			timer250ms = 0;
+			if (buzzCounter > 0) { 	//为0时蜂鸣器不响
+				Buzz();
+				buzzCounter--;
+			}
 		}
 		
 		if (timer5ms >= 5) {
+			timer5ms = 0;
 			P1MODL = 0x8a;
 			GetKeys();
 		}
