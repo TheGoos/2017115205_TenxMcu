@@ -8,10 +8,11 @@ void main() {
 	F_turnOnWDT();
 	modeValue = 1; //初始值为1
 	buzzCounter = 0; //初始值为0
-	P_ledcom=0;
+	P_ledcom = 0;
 	P_led1 = 1;
-	//P_led2=1;
-	BuzzCount(3); //参数3代表设置蜂鸣器响3下
+	//P_led2 = 1;
+	//BuzzCount(3); //参数3代表设置蜂鸣器响3下
+	keySelect = 0;  //初始值为0
 	
 	while(1){
 		//清看门狗
@@ -42,7 +43,7 @@ void main() {
 		
 		if (timer250ms >= 250){
 			timer250ms = 0;
-			if (buzzCounter > 0) { 	//为0时蜂鸣器不响
+			if (buzzCounter > 0) { //为0时蜂鸣器不响
 				Buzz();
 				buzzCounter--;
 			}
@@ -50,29 +51,55 @@ void main() {
 		
 		if (timer5ms >= 5) {
 			timer5ms = 0;
-			P1MODL = 0x8a;
+			P1MODL = 0x8a;  //将模式置为上拉输入
 			GetKeys();
-		}
+			}
 	}
 //=============================================================================
-	void TaskSetting(){	
-	//**单端口复用控制LED亮灭**
-	if (modeValue == 1){//模式标志为1时，该模式为推挽输出
-		//LED状态转换
-		if(D_keyValue1 == keyValue){
-			Mode_Neg();		//模式标志为取反
-		}
-		P1MODL = 0xaa;		//将模式置为推挽输出，使LED显示
-		} else {//否则，该模式为上拉输入
-			if(D_keyValue1 == keyValue){
-				Mode_Neg();		
-			}
-		}
-		
+	void TaskSetting(){
+		switch(keySelect) {
+			case 4:
+				//**单端口复用控制LED亮灭**
+				if(modeValue == 1){//模式标志为1时，该模式为推挽输出
+					//LED状态转换
+					if(D_keyValue1 == keyValue){
+						Mode_Neg();		//模式标志为取反
+					}
+					P1MODL = 0xaa;		//将模式置为推挽输出，使LED显示
+				}
+				else {//否则，该模式为上拉输入
+					if(D_keyValue1 == keyValue){
+						Mode_Neg();		
+					}
+				}
+			  break;
+			case 3:
+				if(modeValue == 1){
+					if(D_keyValue1 == keyValue){ //按键控制蜂鸣器
+						BuzzCount(1);
+					}
+					P1MODL = 0xaa;
+				}
+				else {
+					if(D_keyValue1 == keyValue){ //按键控制蜂鸣器
+						BuzzCount(1);
+					}
+					P1MODL = 0x8a;
+				}
+		  	break;
+			case 0:
+				if(modeValue == 1){
+					P1MODL = 0xaa;
+				}
+				else {
+					P1MODL = 0x8a;
+				}
+				break;
+		}//switch
 	} 
 //=============================================================================
 	void TaskProcess(){
-
+		
 	}
 //=============================================================================
 void DisplayProcess(){
