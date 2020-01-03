@@ -1,4 +1,4 @@
-#include <REGtenxTM52F5278B.h>
+#include <REGtenxTM52F5268B.h>
 
 #include "typeAlias.h"
 
@@ -7,4 +7,5 @@
 #include "keys.h"
 #include "isr.h"
 #include "main.h"
+#include "buzz.h"
 #include <INTRINS.H>
