@@ -4,19 +4,22 @@
 //按键信息获取
 void GetKeys() {
 	static uint8_t tempKeyValue = D_keyNull;
+	static uint8_t tempKeySelect = 0;
 	
 	if(P_key4==0 || P_key3==0){
 		tempKeyValue = D_keyValue1;
 		
 		//检测按下哪个按键
 		if(P_key4==0)
-			keySelect = 4;
+			tempKeySelect = 4;
 		else if(P_key3==0)
-			keySelect = 3;
+			tempKeySelect = 3;
 		
 	}	
 	else{
 		keyValue = tempKeyValue;
+		keySelect = tempKeySelect;
 		tempKeyValue = D_keyNull;
+		tempKeySelect = 0;
 	}
 }
