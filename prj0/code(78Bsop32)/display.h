@@ -34,5 +34,7 @@
 // Function ------------------------------------
 void SMG_Select(uint8_t position, uint8_t number);
 void SMG_Display(uint8_t number);
-void Set_Pin_Sta();
+void Set_Pin_Sta(void);
+void Set_Pin_Sta1(uint8_t number);
+void SMG_ON_or_OFF(uint8_t status);
 #endif
