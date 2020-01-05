@@ -55,7 +55,8 @@ void main() {
 			timer5ms = 0;
 			P1MODL = 0x8a;  //将模式置为上拉输入
 			P1MODH = 0x2a;
-			GetKeys();
+			GetKeys();	//获取按键
+			GetTemp();	//获取温度
 			}
 	}
 //=============================================================================
@@ -63,7 +64,7 @@ void main() {
 		switch(keySelect){
 			case 4:	//按下Key4
 				if(modeValue == 1){//模式标志为1,将开关状态进行转换
-						status = temp1+1;					
+						status = temp1+1;				
 						Mode_Neg();		//保证按下按键为1次
 				}
 			  break;
@@ -97,13 +98,15 @@ void main() {
 			status = 0;
 		temp1 = status;
 		*/
-		
+		/*
 		//按键控制数码管计数
 		SMG_Display(num);
 		if (num > 9)
 			num = 0;
 		temp = num;
-		
+		*/
+		//显示温度
+		SMG_Display(curTemp);
 	}
 //=============================================================================
 void DisplayProcess(){		
